@@ -1,0 +1,134 @@
+#VRML_SIM R2025a utf8
+
+EXTERNPROTO "../protos/Sawppy.proto"
+
+WorldInfo {
+  title "Sawppy on Mars"
+  info [
+    "Same Sawppy as moon.wbt. Reddish soil maps + dusk IBL."
+    "Click the 3D view, then w/a/s/d/x."
+  ]
+  gravity 3.71
+  basicTimeStep 16
+  lineScale 0.2
+  coordinateSystem "ENU"
+  contactProperties [
+    ContactProperties {
+      material1 "wheel"
+      material2 "regolith"
+      coulombFriction 1.0
+      bounce 0
+      maxContactJoints 21
+    }
+  ]
+}
+Viewpoint {
+  orientation -0.4 0.4 0.82 1.9
+  position -2.5 -3.5 1.8
+  near 0.1
+  follow "Sawppy"
+}
+Background {
+  skyColor [ 0.55 0.32 0.18 ]
+  luminosity 0.85
+  backUrl [ "textures/sky/dusk_back.jpg" ]
+  bottomUrl [ "textures/sky/dusk_bottom.jpg" ]
+  frontUrl [ "textures/sky/dusk_front.jpg" ]
+  leftUrl [ "textures/sky/dusk_left.jpg" ]
+  rightUrl [ "textures/sky/dusk_right.jpg" ]
+  topUrl [ "textures/sky/dusk_top.jpg" ]
+}
+DirectionalLight {
+  ambientIntensity 0.4
+  direction 0.4 0.2 -0.9
+  intensity 2.2
+  color 1 0.82 0.62
+  castShadows FALSE
+}
+Solid {
+  translation 0 0 -0.05
+  name "regolith"
+  contactMaterial "regolith"
+  children [
+    Pose {
+      translation 0 0 0.05
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0.72 0.38 0.22
+            roughness 1
+            metalness 0
+            baseColorMap ImageTexture {
+              url [ "textures/moon/grey_soil_base_color.jpg" ]
+            }
+            roughnessMap ImageTexture {
+              url [ "textures/moon/grey_soil_roughness.jpg" ]
+            }
+            normalMap ImageTexture {
+              url [ "textures/moon/grey_soil_normal.jpg" ]
+            }
+          }
+          geometry IndexedFaceSet {
+            coord Coordinate {
+              point [
+                -20 -20 0
+                20 -20 0
+                -20 20 0
+                20 20 0
+              ]
+            }
+            texCoord TextureCoordinate {
+              point [
+                0 0
+                18 0
+                0 18
+                18 18
+              ]
+            }
+            coordIndex [
+              2 0 1 3 -1
+            ]
+            texCoordIndex [
+              2 0 1 3 -1
+            ]
+          }
+        }
+      ]
+    }
+  ]
+  boundingObject Box {
+    size 40 40 0.1
+  }
+  locked TRUE
+}
+Solid {
+  translation 2.4 1.2 0.15
+  name "rock_a"
+  recognitionColors [ 0.7 0.35 0.25 ]
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.65 0.32 0.2
+        roughness 1
+        metalness 0
+        baseColorMap ImageTexture {
+          url [ "textures/rock.jpg" ]
+        }
+      }
+      geometry Box { size 0.8 0.6 0.3 }
+    }
+  ]
+  boundingObject Box { size 0.8 0.6 0.3 }
+  locked TRUE
+}
+Sawppy {
+  translation 0 0 0.24
+  controller "sawppy_drive"
+}
+
+Robot {
+  translation 0 0 -10
+  name "mcp_bridge"
+  controller "mcp_bridge"
+  supervisor TRUE
+}

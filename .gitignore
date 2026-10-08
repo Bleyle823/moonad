@@ -1,0 +1,16 @@
+node_modules/
+.env
+.env.*
+!.env.example
+cache/
+artifacts/
+typechain-types/
+coverage/
+.coverage_artifacts/
+.coverage_cache/
+*.bak
+*.wbproj
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db

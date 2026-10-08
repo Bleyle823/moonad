@@ -1,0 +1,318 @@
+#VRML_SIM R2025a utf8
+# Joint frames converted from rover_description xacro.
+# ROS (x forward, y left, z up) -> Webots (x right, y up, z forward): (-y, z, x)
+
+PROTO SawppyRover [
+  field SFVec3f    translation 0 0.28 0
+  field SFRotation rotation    0 1 0 0
+  field SFString   controller  "sawppy_drive"
+  field SFString   name        "sawppy"
+]
+{
+  Robot {
+    translation IS translation
+    rotation IS rotation
+    controller IS controller
+    name IS name
+    children [
+      Shape {
+        appearance PBRAppearance { baseColor 0.92 0.92 0.94 roughness 0.4 metalness 0.5 }
+        geometry Box { size 0.29 0.10 0.43 }
+      }
+      Shape {
+        appearance PBRAppearance { baseColor 0.7 0.72 0.75 roughness 0.4 metalness 0.6 }
+        geometry Box { size 0.055 0.055 0.30 }
+      }
+      Lidar {
+        translation 0 0.005 0.17
+        name "lidar"
+        fieldOfView 2.0
+        horizontalResolution 180
+        minRange 0.12
+        maxRange 8
+      }
+      Camera {
+        translation 0 0.065 0.215
+        rotation 1 0 0 0.4
+        name "camera"
+        fieldOfView 1.0
+        width 320
+        height 240
+      }
+      RangeFinder {
+        translation 0 0.065 0.215
+        rotation 1 0 0 0.4
+        name "depth"
+        fieldOfView 1.0
+        width 160
+        height 120
+        minRange 0.2
+        maxRange 4
+      }
+      GPS { name "gps" }
+      InertialUnit { name "imu" }
+      DEF LEFT_ROCKER HingeJoint {
+        jointParameters HingeJointParameters {
+          axis 1 0 0
+          anchor -0.155 0.012 0.071
+          minStop -0.785
+          maxStop 0.785
+          dampingConstant 1
+        }
+        endPoint Solid {
+          translation -0.155 0.012 0.071
+          name "left_rocker"
+          children [
+            Shape {
+              appearance PBRAppearance { baseColor 0.8 0.25 0.2 roughness 0.5 }
+              geometry Box { size 0.03 0.03 0.46 }
+            }
+            HingeJoint {
+              jointParameters HingeJointParameters {
+                axis 0 1 0
+                anchor -0.075 -0.028 0.212
+                minStop -1.2
+                maxStop 1.2
+              }
+              device [ RotationalMotor { name "fl_steer" maxVelocity 2 } ]
+              endPoint Solid {
+                translation -0.075 -0.028 0.212
+                name "fl_corner"
+                children [
+                  HingeJoint {
+                    jointParameters HingeJointParameters { axis 1 0 0 anchor 0 -0.132 0 }
+                    device [ RotationalMotor { name "fl_wheel" maxVelocity 10 } ]
+                    endPoint Solid {
+                      translation 0 -0.132 0
+                      rotation 0 0 1 1.5708
+                      name "fl_wheel_link"
+                      contactMaterial "wheel"
+                      children [
+                        Shape {
+                          appearance PBRAppearance { baseColor 0.15 0.15 0.15 roughness 0.9 }
+                          geometry Cylinder { height 0.10 radius 0.06 }
+                        }
+                      ]
+                      boundingObject Cylinder { height 0.10 radius 0.06 }
+                      physics Physics { density 800 }
+                    }
+                  }
+                ]
+                boundingObject Box { size 0.04 0.04 0.04 }
+                physics Physics { density 400 }
+              }
+            }
+            HingeJoint {
+              jointParameters HingeJointParameters {
+                axis 1 0 0
+                anchor -0.025 -0.062 -0.181
+                minStop -0.785
+                maxStop 0.785
+                dampingConstant 0.8
+              }
+              endPoint Solid {
+                translation -0.025 -0.062 -0.181
+                name "left_bogie"
+                children [
+                  Shape {
+                    appearance PBRAppearance { baseColor 0.25 0.3 0.55 roughness 0.5 }
+                    geometry Box { size 0.025 0.025 0.32 }
+                  }
+                  HingeJoint {
+                    jointParameters HingeJointParameters { axis 1 0 0 anchor -0.093 -0.096 0.106 }
+                    device [ RotationalMotor { name "ml_wheel" maxVelocity 10 } ]
+                    endPoint Solid {
+                      translation -0.093 -0.096 0.106
+                      rotation 0 0 1 1.5708
+                      name "ml_wheel_link"
+                      contactMaterial "wheel"
+                      children [
+                        Shape {
+                          appearance PBRAppearance { baseColor 0.15 0.15 0.15 roughness 0.9 }
+                          geometry Cylinder { height 0.10 radius 0.06 }
+                        }
+                      ]
+                      boundingObject Cylinder { height 0.10 radius 0.06 }
+                      physics Physics { density 800 }
+                    }
+                  }
+                  HingeJoint {
+                    jointParameters HingeJointParameters {
+                      axis 0 1 0
+                      anchor -0.05 0.034 -0.149
+                      minStop -1.2
+                      maxStop 1.2
+                    }
+                    device [ RotationalMotor { name "bl_steer" maxVelocity 2 } ]
+                    endPoint Solid {
+                      translation -0.05 0.034 -0.149
+                      name "bl_corner"
+                      children [
+                        HingeJoint {
+                          jointParameters HingeJointParameters { axis 1 0 0 anchor 0 -0.132 0 }
+                          device [ RotationalMotor { name "bl_wheel" maxVelocity 10 } ]
+                          endPoint Solid {
+                            translation 0 -0.132 0
+                            rotation 0 0 1 1.5708
+                            name "bl_wheel_link"
+                            contactMaterial "wheel"
+                            children [
+                              Shape {
+                                appearance PBRAppearance { baseColor 0.15 0.15 0.15 roughness 0.9 }
+                                geometry Cylinder { height 0.10 radius 0.06 }
+                              }
+                            ]
+                            boundingObject Cylinder { height 0.10 radius 0.06 }
+                            physics Physics { density 800 }
+                          }
+                        }
+                      ]
+                      boundingObject Box { size 0.04 0.04 0.04 }
+                      physics Physics { density 400 }
+                    }
+                  }
+                ]
+                boundingObject Box { size 0.04 0.04 0.32 }
+                physics Physics { density 300 }
+              }
+            }
+          ]
+          boundingObject Box { size 0.04 0.04 0.46 }
+          physics Physics { density 250 }
+        }
+      }
+      DEF RIGHT_ROCKER HingeJoint {
+        jointParameters HingeJointParameters {
+          axis 1 0 0
+          anchor 0.155 0.012 0.071
+          minStop -0.785
+          maxStop 0.785
+          dampingConstant 1
+        }
+        endPoint Solid {
+          translation 0.155 0.012 0.071
+          name "right_rocker"
+          children [
+            Shape {
+              appearance PBRAppearance { baseColor 0.8 0.25 0.2 roughness 0.5 }
+              geometry Box { size 0.03 0.03 0.46 }
+            }
+            HingeJoint {
+              jointParameters HingeJointParameters {
+                axis 0 1 0
+                anchor 0.075 -0.028 0.212
+                minStop -1.2
+                maxStop 1.2
+              }
+              device [ RotationalMotor { name "fr_steer" maxVelocity 2 } ]
+              endPoint Solid {
+                translation 0.075 -0.028 0.212
+                name "fr_corner"
+                children [
+                  HingeJoint {
+                    jointParameters HingeJointParameters { axis 1 0 0 anchor 0 -0.132 0 }
+                    device [ RotationalMotor { name "fr_wheel" maxVelocity 10 } ]
+                    endPoint Solid {
+                      translation 0 -0.132 0
+                      rotation 0 0 1 1.5708
+                      name "fr_wheel_link"
+                      contactMaterial "wheel"
+                      children [
+                        Shape {
+                          appearance PBRAppearance { baseColor 0.15 0.15 0.15 roughness 0.9 }
+                          geometry Cylinder { height 0.10 radius 0.06 }
+                        }
+                      ]
+                      boundingObject Cylinder { height 0.10 radius 0.06 }
+                      physics Physics { density 800 }
+                    }
+                  }
+                ]
+                boundingObject Box { size 0.04 0.04 0.04 }
+                physics Physics { density 400 }
+              }
+            }
+            HingeJoint {
+              jointParameters HingeJointParameters {
+                axis 1 0 0
+                anchor 0.025 -0.062 -0.181
+                minStop -0.785
+                maxStop 0.785
+                dampingConstant 0.8
+              }
+              endPoint Solid {
+                translation 0.025 -0.062 -0.181
+                name "right_bogie"
+                children [
+                  Shape {
+                    appearance PBRAppearance { baseColor 0.25 0.3 0.55 roughness 0.5 }
+                    geometry Box { size 0.025 0.025 0.32 }
+                  }
+                  HingeJoint {
+                    jointParameters HingeJointParameters { axis 1 0 0 anchor 0.093 -0.096 0.106 }
+                    device [ RotationalMotor { name "mr_wheel" maxVelocity 10 } ]
+                    endPoint Solid {
+                      translation 0.093 -0.096 0.106
+                      rotation 0 0 1 1.5708
+                      name "mr_wheel_link"
+                      contactMaterial "wheel"
+                      children [
+                        Shape {
+                          appearance PBRAppearance { baseColor 0.15 0.15 0.15 roughness 0.9 }
+                          geometry Cylinder { height 0.10 radius 0.06 }
+                        }
+                      ]
+                      boundingObject Cylinder { height 0.10 radius 0.06 }
+                      physics Physics { density 800 }
+                    }
+                  }
+                  HingeJoint {
+                    jointParameters HingeJointParameters {
+                      axis 0 1 0
+                      anchor 0.05 0.034 -0.149
+                      minStop -1.2
+                      maxStop 1.2
+                    }
+                    device [ RotationalMotor { name "br_steer" maxVelocity 2 } ]
+                    endPoint Solid {
+                      translation 0.05 0.034 -0.149
+                      name "br_corner"
+                      children [
+                        HingeJoint {
+                          jointParameters HingeJointParameters { axis 1 0 0 anchor 0 -0.132 0 }
+                          device [ RotationalMotor { name "br_wheel" maxVelocity 10 } ]
+                          endPoint Solid {
+                            translation 0 -0.132 0
+                            rotation 0 0 1 1.5708
+                            name "br_wheel_link"
+                            contactMaterial "wheel"
+                            children [
+                              Shape {
+                                appearance PBRAppearance { baseColor 0.15 0.15 0.15 roughness 0.9 }
+                                geometry Cylinder { height 0.10 radius 0.06 }
+                              }
+                            ]
+                            boundingObject Cylinder { height 0.10 radius 0.06 }
+                            physics Physics { density 800 }
+                          }
+                        }
+                      ]
+                      boundingObject Box { size 0.04 0.04 0.04 }
+                      physics Physics { density 400 }
+                    }
+                  }
+                ]
+                boundingObject Box { size 0.04 0.04 0.32 }
+                physics Physics { density 300 }
+              }
+            }
+          ]
+          boundingObject Box { size 0.04 0.04 0.46 }
+          physics Physics { density 250 }
+        }
+      }
+    ]
+    boundingObject Box { size 0.29 0.10 0.43 }
+    physics Physics { density 500 }
+  }
+}

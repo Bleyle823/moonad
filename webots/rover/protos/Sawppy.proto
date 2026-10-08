@@ -1,0 +1,873 @@
+#VRML_SIM R2025a utf8
+# license: Apache License 2.0
+# license url: http://www.apache.org/licenses/LICENSE-2.0
+# This is a proto file for Webots for the Sawppy
+# Extracted from: C:\Users\Omen\Desktop\ros2_rover-jazzy\rover_description\rover.urdf
+
+PROTO Sawppy [
+  field  SFVec3f     translation     0 0 0
+  field  SFRotation  rotation        0 0 1 0
+  field  SFString    name            "Sawppy"  # Is `Robot.name`.
+  field  SFString    controller      "sawppy_drive"    # Is `Robot.controller`.
+  field  MFString    controllerArgs  []        # Is `Robot.controllerArgs`.
+  field  SFString    customData      ""        # Is `Robot.customData`.
+  field  SFBool      supervisor      FALSE     # Is `Robot.supervisor`.
+  field  SFBool      synchronization TRUE      # Is `Robot.synchronization`.
+  field  SFBool      selfCollision   FALSE     # Is `Robot.selfCollision`.
+]
+{
+  Robot {
+    translation IS translation
+    rotation IS rotation
+    controller IS controller
+    controllerArgs IS controllerArgs
+    customData IS customData
+    supervisor IS supervisor
+    synchronization IS synchronization
+    selfCollision IS selfCollision
+    children [
+      Shape {
+        appearance DEF orange PBRAppearance {
+          baseColor 0.82 0.55 0.18
+          roughness 0.28
+          metalness 1
+          baseColorMap ImageTexture {
+            url [ "textures/sojourner_metal.jpg" ]
+          }
+        }
+        geometry Box {
+           size 0.010000 0.010000 0.010000
+        }
+      }
+      DEF body_box_link Solid {
+        children [
+          Shape {
+            appearance DEF white PBRAppearance {
+              baseColor 0.72 0.74 0.76
+              roughness 0.22
+              metalness 1
+              IBLStrength 1.4
+              baseColorMap ImageTexture {
+                url [ "textures/brushed_aluminium_base_color.jpg" ]
+              }
+              roughnessMap ImageTexture {
+                url [ "textures/brushed_aluminium_roughness.jpg" ]
+              }
+              normalMap ImageTexture {
+                url [ "textures/brushed_aluminium_normal.jpg" ]
+              }
+              metalnessMap ImageTexture {
+                url [ "textures/old_steel_metalness.jpg" ]
+              }
+            }
+            geometry DEF body_box Mesh {
+              url "C:/Users/Omen/Desktop/ros2_rover-jazzy/rover_description/meshes/bases/body_box.stl"
+            }
+          }
+        ]
+        name "body_box_link"
+        boundingObject Box {
+           size 0.360000 0.220000 0.080000
+        }
+        physics Physics {
+          density -1
+          mass 1.000000
+          centerOfMass [ 0.000000 0.000000 0.000000 ]
+          inertiaMatrix [
+            7.841667e-03 1.624167e-02 2.241667e-02
+            0.000000e+00 0.000000e+00 0.000000e+00
+          ]
+        }
+      }
+      DEF diff_brace_joint HingeJoint {
+        jointParameters HingeJointParameters {
+          axis 0.000000 0.000000 1.000000
+          anchor 0.000000 0.000000 0.068100
+          springConstant 10
+          dampingConstant 0.2
+        }
+        device [
+          RotationalMotor {
+            name "diff_brace_joint"
+            maxVelocity 30.0
+            minPosition -0.785398163397448
+            maxPosition 0.785398163397448
+            maxTorque 100.0
+          }
+          PositionSensor {
+            name "diff_brace_joint_sensor"
+          }
+        ]
+        endPoint DEF diff_brace_link Solid {
+          translation 0.000000 0.000000 0.068100
+          children [
+            Shape {
+              appearance USE white
+              geometry DEF differential Mesh {
+                url "C:/Users/Omen/Desktop/ros2_rover-jazzy/rover_description/meshes/bases/differential.stl"
+              }
+            }
+          ]
+          name "diff_brace_link"
+          boundingObject Box {
+             size 0.300000 0.055000 0.055000
+          }
+          physics Physics {
+            density -1
+            mass 0.100000
+            centerOfMass [ 0.000000 0.000000 0.000000 ]
+            inertiaMatrix [
+              7.752083e-04 5.041667e-05 7.752083e-04
+              4.438069e-20 0.000000e+00 0.000000e+00
+            ]
+          }
+        }
+      }
+      DEF left_rocker_link Solid {
+        translation 0.071000 0.155000 0.011800
+        children [
+          Shape {
+            appearance USE white
+            geometry DEF left_rocker_asm Mesh {
+              url "C:/Users/Omen/Desktop/ros2_rover-jazzy/rover_description/meshes/bases/left_rocker_asm.stl"
+            }
+          }
+          DEF left_bogie_joint HingeJoint {
+            jointParameters HingeJointParameters {
+              axis 0.000000 1.000000 0.000000
+              anchor -0.181000 0.025000 -0.062000
+              springConstant 10
+              dampingConstant 0.2
+            }
+            device [
+              RotationalMotor {
+                name "left_bogie_joint"
+                maxVelocity 30.0
+                minPosition -0.785398163397448
+                maxPosition 0.785398163397448
+                maxTorque 100.0
+              }
+              PositionSensor {
+                name "left_bogie_joint_sensor"
+              }
+            ]
+            endPoint DEF left_bogie_link Solid {
+              translation -0.181000 0.025000 -0.062000
+              children [
+                Shape {
+                  appearance USE white
+                  geometry DEF left_bogie_asm Mesh {
+                    url "C:/Users/Omen/Desktop/ros2_rover-jazzy/rover_description/meshes/bases/left_bogie_asm.stl"
+                  }
+                }
+                DEF back_left_corner_joint HingeJoint {
+                  jointParameters HingeJointParameters {
+                    axis 0.000000 0.000000 1.000000
+                    anchor -0.149000 0.050000 0.033800
+                  }
+                  device [
+                    RotationalMotor {
+                      name "back_left_corner_joint"
+                      maxVelocity 30.0
+            minPosition -1.2
+            maxPosition 1.2
+                      maxTorque 2.0
+                    }
+                    PositionSensor {
+                      name "back_left_corner_joint_sensor"
+                    }
+                  ]
+                  endPoint DEF back_left_corner_link Solid {
+                    translation -0.149000 0.050000 0.033800
+                    children [
+                      Shape {
+                        appearance USE white
+                        geometry DEF back_left_steering_asm Mesh {
+                          url "C:/Users/Omen/Desktop/ros2_rover-jazzy/rover_description/meshes/bases/back_left_steering_asm.stl"
+                        }
+                      }
+                      DEF back_left_wheel_joint HingeJoint {
+                        jointParameters HingeJointParameters {
+                          axis 0.000000 1.000000 0.000000
+                          anchor 0.000000 0.000000 -0.132000
+                        }
+                        device [
+                          RotationalMotor {
+                            name "back_left_wheel_joint"
+                            maxVelocity 30.0
+                            maxTorque 2.0
+                          }
+                          PositionSensor {
+                            name "back_left_wheel_joint_sensor"
+                          }
+                        ]
+                        endPoint DEF back_left_wheel_link Solid {
+                          translation 0.000000 0.000000 -0.132000
+                          children [
+                            Pose {
+                              rotation 1.000000 0.000000 0.000000 1.570796
+                              children [
+                                Shape {
+                                  appearance DEF black PBRAppearance {
+                                    baseColor 0.12 0.12 0.12
+                                    roughness 0.85
+                                    metalness 0
+                                    baseColorMap ImageTexture {
+                                      url [ "textures/tire_rubber_base_color.jpg" ]
+                                    }
+                                    roughnessMap ImageTexture {
+                                      url [ "textures/tire_rubber_roughness.jpg" ]
+                                    }
+                                    normalMap ImageTexture {
+                                      url [ "textures/tire_rubber_normal.jpg" ]
+                                    }
+                                  }
+                                  geometry DEF wheel_asm Mesh {
+                                    url "C:/Users/Omen/Desktop/ros2_rover-jazzy/rover_description/meshes/wheels/wheel_asm.stl"
+                                  }
+                                }
+                              ]
+                            }
+                          ]
+                          name "back_left_wheel_link"
+                          contactMaterial "wheel"
+                          boundingObject Cylinder {
+                            radius 0.075
+                            height 0.055
+                          }
+                          physics Physics {
+                            density -1
+                            mass 0.250000
+                            centerOfMass [ 0.000000 0.000000 0.000000 ]
+                            inertiaMatrix [
+                              4.333333e-04 4.333333e-04 4.500000e-04
+                              0.000000e+00 0.000000e+00 0.000000e+00
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                    name "back_left_corner_link"
+                    boundingObject Box {
+                       size 0.050000 0.050000 0.070000
+                    }
+                    physics Physics {
+                      density -1
+                      mass 0.250000
+                      centerOfMass [ 0.000000 0.000000 0.000000 ]
+                      inertiaMatrix [
+                        1.960417e-03 4.060417e-03 5.604167e-03
+                        0.000000e+00 0.000000e+00 0.000000e+00
+                      ]
+                    }
+                  }
+                }
+                DEF mid_left_wheel_joint HingeJoint {
+                  jointParameters HingeJointParameters {
+                    axis 0.000000 1.000000 0.000000
+                    anchor 0.106300 0.092900 -0.095900
+                  }
+                  device [
+                    RotationalMotor {
+                      name "mid_left_wheel_joint"
+                      maxVelocity 30.0
+                      maxTorque 2.0
+                    }
+                    PositionSensor {
+                      name "mid_left_wheel_joint_sensor"
+                    }
+                  ]
+                  endPoint DEF mid_left_wheel_link Solid {
+                    translation 0.106300 0.092900 -0.095900
+                    children [
+                      Pose {
+                        rotation 1.000000 0.000000 0.000000 1.570796
+                        children [
+                          Shape {
+                            appearance USE black
+                            geometry USE wheel_asm
+                          }
+                        ]
+                      }
+                    ]
+                    name "mid_left_wheel_link"
+                    contactMaterial "wheel"
+                    boundingObject Cylinder {
+                      radius 0.075
+                      height 0.055
+                    }
+                    physics Physics {
+                      density -1
+                      mass 0.250000
+                      centerOfMass [ 0.000000 0.000000 0.000000 ]
+                      inertiaMatrix [
+                        4.333333e-04 4.333333e-04 4.500000e-04
+                        0.000000e+00 0.000000e+00 0.000000e+00
+                      ]
+                    }
+                  }
+                }
+              ]
+              name "left_bogie_link"
+              boundingObject Box {
+                 size 0.220000 0.040000 0.040000
+              }
+              physics Physics {
+                density -1
+                mass 0.250000
+                centerOfMass [ 0.000000 0.000000 0.000000 ]
+                inertiaMatrix [
+                  1.960417e-03 4.060417e-03 5.604167e-03
+                  0.000000e+00 0.000000e+00 0.000000e+00
+                ]
+              }
+            }
+          }
+          DEF front_left_corner_joint HingeJoint {
+            jointParameters HingeJointParameters {
+              axis 0.000000 0.000000 1.000000
+              anchor 0.211600 0.075000 -0.027900
+            }
+            device [
+              RotationalMotor {
+                name "front_left_corner_joint"
+                maxVelocity 30.0
+            minPosition -1.2
+            maxPosition 1.2
+                maxTorque 2.0
+              }
+              PositionSensor {
+                name "front_left_corner_joint_sensor"
+              }
+            ]
+            endPoint DEF front_left_corner_link Solid {
+              translation 0.211600 0.075000 -0.027900
+              children [
+                Shape {
+                  appearance USE white
+                  geometry DEF front_left_steering_asm Mesh {
+                    url "C:/Users/Omen/Desktop/ros2_rover-jazzy/rover_description/meshes/bases/front_left_steering_asm.stl"
+                  }
+                }
+                DEF front_left_wheel_joint HingeJoint {
+                  jointParameters HingeJointParameters {
+                    axis 0.000000 1.000000 0.000000
+                    anchor 0.000000 0.000000 -0.132000
+                  }
+                  device [
+                    RotationalMotor {
+                      name "front_left_wheel_joint"
+                      maxVelocity 30.0
+                      maxTorque 2.0
+                    }
+                    PositionSensor {
+                      name "front_left_wheel_joint_sensor"
+                    }
+                  ]
+                  endPoint DEF front_left_wheel_link Solid {
+                    translation 0.000000 0.000000 -0.132000
+                    children [
+                      Pose {
+                        rotation 1.000000 0.000000 0.000000 1.570796
+                        children [
+                          Shape {
+                            appearance USE black
+                            geometry USE wheel_asm
+                          }
+                        ]
+                      }
+                    ]
+                    name "front_left_wheel_link"
+                    contactMaterial "wheel"
+                    boundingObject Cylinder {
+                      radius 0.075
+                      height 0.055
+                    }
+                    physics Physics {
+                      density -1
+                      mass 0.250000
+                      centerOfMass [ 0.000000 0.000000 0.000000 ]
+                      inertiaMatrix [
+                        4.333333e-04 4.333333e-04 4.500000e-04
+                        0.000000e+00 0.000000e+00 0.000000e+00
+                      ]
+                    }
+                  }
+                }
+              ]
+              name "front_left_corner_link"
+              boundingObject Box {
+                 size 0.050000 0.050000 0.070000
+              }
+              physics Physics {
+                density -1
+                mass 0.250000
+                centerOfMass [ 0.000000 0.000000 0.000000 ]
+                inertiaMatrix [
+                  1.960417e-03 4.060417e-03 5.604167e-03
+                  0.000000e+00 0.000000e+00 0.000000e+00
+                ]
+              }
+            }
+          }
+        ]
+        name "left_rocker_link"
+        boundingObject Box {
+           size 0.280000 0.040000 0.050000
+        }
+        physics Physics {
+          density -1
+          mass 0.250000
+          centerOfMass [ 0.000000 0.000000 0.000000 ]
+          inertiaMatrix [
+            1.960417e-03 4.060417e-03 5.604167e-03
+            0.000000e+00 0.000000e+00 0.000000e+00
+          ]
+        }
+      }
+      DEF right_rocker_link Solid {
+        translation 0.071000 -0.155000 0.011800
+        children [
+          Shape {
+            appearance USE white
+            geometry DEF right_rocker_asm Mesh {
+              url "C:/Users/Omen/Desktop/ros2_rover-jazzy/rover_description/meshes/bases/right_rocker_asm.stl"
+            }
+          }
+          DEF right_bogie_joint HingeJoint {
+            jointParameters HingeJointParameters {
+              axis 0.000000 1.000000 0.000000
+              anchor -0.181000 -0.025000 -0.062000
+              springConstant 10
+              dampingConstant 0.2
+            }
+            device [
+              RotationalMotor {
+                name "right_bogie_joint"
+                maxVelocity 30.0
+                minPosition -0.785398163397448
+                maxPosition 0.785398163397448
+                maxTorque 100.0
+              }
+              PositionSensor {
+                name "right_bogie_joint_sensor"
+              }
+            ]
+            endPoint DEF right_bogie_link Solid {
+              translation -0.181000 -0.025000 -0.062000
+              children [
+                Shape {
+                  appearance USE white
+                  geometry DEF right_bogie_asm Mesh {
+                    url "C:/Users/Omen/Desktop/ros2_rover-jazzy/rover_description/meshes/bases/right_bogie_asm.stl"
+                  }
+                }
+                DEF back_right_corner_joint HingeJoint {
+                  jointParameters HingeJointParameters {
+                    axis 0.000000 0.000000 1.000000
+                    anchor -0.149000 -0.050000 0.033800
+                  }
+                  device [
+                    RotationalMotor {
+                      name "back_right_corner_joint"
+                      maxVelocity 30.0
+            minPosition -1.2
+            maxPosition 1.2
+                      maxTorque 2.0
+                    }
+                    PositionSensor {
+                      name "back_right_corner_joint_sensor"
+                    }
+                  ]
+                  endPoint DEF back_right_corner_link Solid {
+                    translation -0.149000 -0.050000 0.033800
+                    children [
+                      Shape {
+                        appearance USE white
+                        geometry DEF back_right_steering_asm Mesh {
+                          url "C:/Users/Omen/Desktop/ros2_rover-jazzy/rover_description/meshes/bases/back_right_steering_asm.stl"
+                        }
+                      }
+                      DEF back_right_wheel_joint HingeJoint {
+                        jointParameters HingeJointParameters {
+                          axis 0.000000 1.000000 0.000000
+                          anchor 0.000000 0.000000 -0.132000
+                        }
+                        device [
+                          RotationalMotor {
+                            name "back_right_wheel_joint"
+                            maxVelocity 30.0
+                            maxTorque 2.0
+                          }
+                          PositionSensor {
+                            name "back_right_wheel_joint_sensor"
+                          }
+                        ]
+                        endPoint DEF back_right_wheel_link Solid {
+                          translation 0.000000 0.000000 -0.132000
+                          children [
+                            Pose {
+                              rotation -1.000000 0.000000 0.000000 1.570796
+                              children [
+                                Shape {
+                                  appearance USE black
+                                  geometry USE wheel_asm
+                                }
+                              ]
+                            }
+                          ]
+                          name "back_right_wheel_link"
+                          contactMaterial "wheel"
+                          boundingObject Cylinder {
+                            radius 0.075
+                            height 0.055
+                          }
+                          physics Physics {
+                            density -1
+                            mass 0.250000
+                            centerOfMass [ 0.000000 0.000000 0.000000 ]
+                            inertiaMatrix [
+                              4.333333e-04 4.333333e-04 4.500000e-04
+                              0.000000e+00 0.000000e+00 0.000000e+00
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                    name "back_right_corner_link"
+                    boundingObject Box {
+                       size 0.050000 0.050000 0.070000
+                    }
+                    physics Physics {
+                      density -1
+                      mass 0.250000
+                      centerOfMass [ 0.000000 0.000000 0.000000 ]
+                      inertiaMatrix [
+                        1.960417e-03 4.060417e-03 5.604167e-03
+                        0.000000e+00 0.000000e+00 0.000000e+00
+                      ]
+                    }
+                  }
+                }
+                DEF mid_right_wheel_joint HingeJoint {
+                  jointParameters HingeJointParameters {
+                    axis 0.000000 1.000000 0.000000
+                    anchor 0.106300 -0.092900 -0.095900
+                  }
+                  device [
+                    RotationalMotor {
+                      name "mid_right_wheel_joint"
+                      maxVelocity 30.0
+                      maxTorque 2.0
+                    }
+                    PositionSensor {
+                      name "mid_right_wheel_joint_sensor"
+                    }
+                  ]
+                  endPoint DEF mid_right_wheel_link Solid {
+                    translation 0.106300 -0.092900 -0.095900
+                    children [
+                      Pose {
+                        rotation -1.000000 0.000000 0.000000 1.570796
+                        children [
+                          Shape {
+                            appearance USE black
+                            geometry USE wheel_asm
+                          }
+                        ]
+                      }
+                    ]
+                    name "mid_right_wheel_link"
+                    contactMaterial "wheel"
+                    boundingObject Cylinder {
+                      radius 0.075
+                      height 0.055
+                    }
+                    physics Physics {
+                      density -1
+                      mass 0.250000
+                      centerOfMass [ 0.000000 0.000000 0.000000 ]
+                      inertiaMatrix [
+                        4.333333e-04 4.333333e-04 4.500000e-04
+                        0.000000e+00 0.000000e+00 0.000000e+00
+                      ]
+                    }
+                  }
+                }
+              ]
+              name "right_bogie_link"
+              boundingObject Box {
+                 size 0.220000 0.040000 0.040000
+              }
+              physics Physics {
+                density -1
+                mass 0.250000
+                centerOfMass [ 0.000000 0.000000 0.000000 ]
+                inertiaMatrix [
+                  1.960417e-03 4.060417e-03 5.604167e-03
+                  0.000000e+00 0.000000e+00 0.000000e+00
+                ]
+              }
+            }
+          }
+          DEF front_right_corner_joint HingeJoint {
+            jointParameters HingeJointParameters {
+              axis 0.000000 0.000000 1.000000
+              anchor 0.211600 -0.075000 -0.027900
+            }
+            device [
+              RotationalMotor {
+                name "front_right_corner_joint"
+                maxVelocity 30.0
+            minPosition -1.2
+            maxPosition 1.2
+                maxTorque 2.0
+              }
+              PositionSensor {
+                name "front_right_corner_joint_sensor"
+              }
+            ]
+            endPoint DEF front_right_corner_link Solid {
+              translation 0.211600 -0.075000 -0.027900
+              children [
+                Shape {
+                  appearance USE white
+                  geometry DEF front_right_steering_asm Mesh {
+                    url "C:/Users/Omen/Desktop/ros2_rover-jazzy/rover_description/meshes/bases/front_right_steering_asm.stl"
+                  }
+                }
+                DEF front_right_wheel_joint HingeJoint {
+                  jointParameters HingeJointParameters {
+                    axis 0.000000 1.000000 0.000000
+                    anchor 0.000000 0.000000 -0.132000
+                  }
+                  device [
+                    RotationalMotor {
+                      name "front_right_wheel_joint"
+                      maxVelocity 30.0
+                      maxTorque 2.0
+                    }
+                    PositionSensor {
+                      name "front_right_wheel_joint_sensor"
+                    }
+                  ]
+                  endPoint DEF front_right_wheel_link Solid {
+                    translation 0.000000 0.000000 -0.132000
+                    children [
+                      Pose {
+                        rotation -1.000000 0.000000 0.000000 1.570796
+                        children [
+                          Shape {
+                            appearance USE black
+                            geometry USE wheel_asm
+                          }
+                        ]
+                      }
+                    ]
+                    name "front_right_wheel_link"
+                    contactMaterial "wheel"
+                    boundingObject Cylinder {
+                      radius 0.075
+                      height 0.055
+                    }
+                    physics Physics {
+                      density -1
+                      mass 0.250000
+                      centerOfMass [ 0.000000 0.000000 0.000000 ]
+                      inertiaMatrix [
+                        4.333333e-04 4.333333e-04 4.500000e-04
+                        0.000000e+00 0.000000e+00 0.000000e+00
+                      ]
+                    }
+                  }
+                }
+              ]
+              name "front_right_corner_link"
+              boundingObject Box {
+                 size 0.050000 0.050000 0.070000
+              }
+              physics Physics {
+                density -1
+                mass 0.250000
+                centerOfMass [ 0.000000 0.000000 0.000000 ]
+                inertiaMatrix [
+                  1.960417e-03 4.060417e-03 5.604167e-03
+                  0.000000e+00 0.000000e+00 0.000000e+00
+                ]
+              }
+            }
+          }
+        ]
+        name "right_rocker_link"
+        boundingObject Box {
+           size 0.280000 0.040000 0.050000
+        }
+        physics Physics {
+          density -1
+          mass 0.250000
+          centerOfMass [ 0.000000 0.000000 0.000000 ]
+          inertiaMatrix [
+            1.960417e-03 4.060417e-03 5.604167e-03
+            0.000000e+00 0.000000e+00 0.000000e+00
+          ]
+        }
+      }
+      DEF laser_base_link Solid {
+        translation 0.170000 0.000000 0.005000
+        children [
+          Pose {
+            translation 0.000000 0.000000 -0.050000
+            children [
+              DEF hokuyo_ust_20lx_visual CadShape {
+                url "C:/Users/Omen/Desktop/ros2_rover-jazzy/rover_description/meshes/sensors/hokuyo/hokuyo_ust_20lx.dae"
+              }
+            ]
+          }
+          Lidar {
+            name "lidar"
+            fieldOfView 4.712389
+            verticalFieldOfView 0.02
+            horizontalResolution 270
+            numberOfLayers 1
+            projection "cylindrical"
+            minRange 0.35
+            maxRange 20
+            noise 0.01
+          }
+        ]
+        name "laser_base_link"
+        boundingObject Box {
+           size 0.010000 0.010000 0.010000
+        }
+        physics Physics {
+          density -1
+          mass 0.000010
+          centerOfMass [ 0.000000 0.000000 0.000000 ]
+          inertiaMatrix [
+            1.000000e-06 1.000000e-06 1.000000e-06
+            0.000000e+00 0.000000e+00 0.000000e+00
+          ]
+        }
+      }
+      DEF imu_link Solid {
+        translation 0.000000 0.000000 -0.040000
+        children [
+          Shape {
+            appearance DEF blue PBRAppearance {
+              baseColor 0.15 0.22 0.38
+              roughness 0.35
+              metalness 0.4
+            }
+            geometry Box {
+               size 0.030000 0.020000 0.010000
+            }
+          }
+          GPS {
+            name "gps"
+            type "satellite"
+          }
+          InertialUnit {
+            name "imu"
+          }
+          Accelerometer {
+            name "accel"
+            lookupTable [
+              -40 -40 0.004
+              40 40 0.004
+            ]
+          }
+          Gyro {
+            name "gyro"
+            lookupTable [
+              -20 -20 0.004
+              20 20 0.004
+            ]
+          }
+        ]
+        name "imu_link"
+        boundingObject Box {
+           size 0.001000 0.001000 0.001000
+        }
+        physics Physics {
+          density -1
+          mass 0.001000
+          centerOfMass [ 0.000000 0.000000 0.000000 ]
+          inertiaMatrix [
+            1.000000e-04 1.000000e-06 1.000000e-04
+            0.000000e+00 0.000000e+00 0.000000e+00
+          ]
+        }
+      }
+      DEF camera_link Solid {
+        translation 0.215000 0.000000 0.065000
+        rotation 0.000000 1.000000 0.000000 0.400000
+        children [
+          Transform {
+            rotation 0.577350 0.577350 0.577350 2.094395
+            scale 0.001000 0.001000 0.001000
+            children [
+              DEF asus_xtion_pro_live_visual CadShape {
+                url "C:/Users/Omen/Desktop/ros2_rover-jazzy/rover_description/meshes/sensors/asus_xtion/asus_xtion_pro_live.dae"
+              }
+            ]
+          }
+          DEF camera_frame Solid {
+            rotation -0.577350 0.577350 -0.577350 2.094395
+            name "camera_frame"
+            physics Physics {
+              density -1
+              mass 0.001000
+              centerOfMass [ 0.000000 0.000000 0.000000 ]
+              inertiaMatrix [
+                1.000000e-03 1.000000e-03 1.000000e-03
+                0.000000e+00 0.000000e+00 0.000000e+00
+              ]
+            }
+          }
+          Camera {
+            name "camera"
+            fieldOfView 1.0472
+            width 320
+            height 240
+            near 0.05
+            antiAliasing TRUE
+            recognition Recognition {
+              maxRange 8
+              frameColor 0.929412 0.831373 0
+              frameThickness 3
+            }
+          }
+          RangeFinder {
+            name "depth"
+            fieldOfView 1.0
+            width 160
+            height 120
+            minRange 0.2
+            maxRange 4
+          }
+        ]
+        name "camera_link"
+        boundingObject Box {
+           size 0.040000 0.120000 0.030000
+        }
+        physics Physics {
+          density -1
+          mass 0.010000
+          centerOfMass [ 0.000000 0.000000 0.000000 ]
+          inertiaMatrix [
+            1.000000e-03 1.000000e-03 1.000000e-03
+            0.000000e+00 0.000000e+00 0.000000e+00
+          ]
+        }
+      }
+    ]
+    name IS name
+    boundingObject Box {
+      size 0.05 0.05 0.05
+    }
+    physics Physics {
+      density -1
+      mass 0.5
+    }
+  }
+}
