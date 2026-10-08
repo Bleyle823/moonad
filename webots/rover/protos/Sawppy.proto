@@ -231,9 +231,14 @@ PROTO Sawppy [
                           ]
                           name "back_left_wheel_link"
                           contactMaterial "wheel"
-                          boundingObject Cylinder {
-                            radius 0.075
-                            height 0.055
+                          boundingObject Pose {
+                            rotation 1 0 0 1.570796
+                            children [
+                              Cylinder {
+                                radius 0.063
+                                height 0.102
+                              }
+                            ]
                           }
                           physics Physics {
                             density -1
@@ -292,9 +297,14 @@ PROTO Sawppy [
                     ]
                     name "mid_left_wheel_link"
                     contactMaterial "wheel"
-                    boundingObject Cylinder {
-                      radius 0.075
-                      height 0.055
+                    boundingObject Pose {
+                      rotation 1 0 0 1.570796
+                      children [
+                        Cylinder {
+                          radius 0.063
+                          height 0.102
+                        }
+                      ]
                     }
                     physics Physics {
                       density -1
@@ -379,9 +389,14 @@ PROTO Sawppy [
                     ]
                     name "front_left_wheel_link"
                     contactMaterial "wheel"
-                    boundingObject Cylinder {
-                      radius 0.075
-                      height 0.055
+                    boundingObject Pose {
+                      rotation 1 0 0 1.570796
+                      children [
+                        Cylinder {
+                          radius 0.063
+                          height 0.102
+                        }
+                      ]
                     }
                     physics Physics {
                       density -1
@@ -518,9 +533,14 @@ PROTO Sawppy [
                           ]
                           name "back_right_wheel_link"
                           contactMaterial "wheel"
-                          boundingObject Cylinder {
-                            radius 0.075
-                            height 0.055
+                          boundingObject Pose {
+                            rotation 1 0 0 1.570796
+                            children [
+                              Cylinder {
+                                radius 0.063
+                                height 0.102
+                              }
+                            ]
                           }
                           physics Physics {
                             density -1
@@ -579,9 +599,14 @@ PROTO Sawppy [
                     ]
                     name "mid_right_wheel_link"
                     contactMaterial "wheel"
-                    boundingObject Cylinder {
-                      radius 0.075
-                      height 0.055
+                    boundingObject Pose {
+                      rotation 1 0 0 1.570796
+                      children [
+                        Cylinder {
+                          radius 0.063
+                          height 0.102
+                        }
+                      ]
                     }
                     physics Physics {
                       density -1
@@ -666,9 +691,14 @@ PROTO Sawppy [
                     ]
                     name "front_right_wheel_link"
                     contactMaterial "wheel"
-                    boundingObject Cylinder {
-                      radius 0.075
-                      height 0.055
+                    boundingObject Pose {
+                      rotation 1 0 0 1.570796
+                      children [
+                        Cylinder {
+                          radius 0.063
+                          height 0.102
+                        }
+                      ]
                     }
                     physics Physics {
                       density -1

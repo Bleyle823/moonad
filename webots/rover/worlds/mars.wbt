@@ -18,7 +18,9 @@ WorldInfo {
       material2 "regolith"
       coulombFriction 1.0
       bounce 0
-      maxContactJoints 21
+      softERP 0.8
+      softCFM 1e-5
+      maxContactJoints 8
     }
   ]
 }
