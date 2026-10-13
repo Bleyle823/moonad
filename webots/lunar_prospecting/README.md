@@ -2,6 +2,8 @@
 
 One rover, three codebases, three jobs. Do not merge their controllers into one blob.
 
+The Sawppy that actually drives this stack is `webots/rover/worlds/moon.wbt` with controller `prospecting`. This folder is the earlier short demo.
+
 | Job | Source | What we keep |
 | --- | --- | --- |
 | Chassis and drive | `ros2_rover-jazzy` (Sawppy, MIT) | 6 driven wheels, 4 corner steer servos, rocker-bogie, lidar + RGB-D + IMU. `cmd_vel` becomes per-wheel speed and corner angle the way `vel_parser_node.py` does. |

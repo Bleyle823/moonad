@@ -10,6 +10,7 @@ module.exports = {
     // peaq agung testnet (set PRIVATE_KEY in .env to deploy)
     agung: {
       url: process.env.AGUNG_RPC || "https://peaq-agung.api.onfinality.io/public",
+      chainId: 9990,
       accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
     },
   },

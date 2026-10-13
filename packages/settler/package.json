@@ -1,0 +1,13 @@
+{
+  "name": "moonad-settler",
+  "private": true,
+  "type": "module",
+  "description": "Dynamic owner wallet funds the peaq machine on agung",
+  "scripts": {
+    "fund": "node fund.mjs"
+  },
+  "dependencies": {
+    "@dynamic-labs-wallet/node-evm": "^1.0.0",
+    "viem": "^2.21.0"
+  }
+}

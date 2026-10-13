@@ -16,7 +16,7 @@ python -m urdf2webots.importer --input=rover_description/rover.urdf --output=web
 
 This is a 6-wheel, 4-steer Sawppy (rocker-bogie). Wheels are velocity mode. Corner joints steer. Bogie and differential brace run with zero motor torque so the suspension can sag.
 
-Click the 3D view, then **w** forward, **x** back, **a** left, **d** right, **s** stop.
+`worlds/moon.wbt` starts the `prospecting` controller: A* to the orange samples, then the lander pad. Switch the Sawppy `controller` field to `sawppy_drive` for keyboard teleop: click the 3D view, then **w** forward, **x** back, **a** left, **d** right, **s** stop.
 
 ## Package map
 
@@ -26,7 +26,8 @@ Click the 3D view, then **w** forward, **x** back, **a** left, **d** right, **s*
 | rover_motor_controller | controllers/sawppy_drive/sawppy_drive.py | `calculate_velocity` and `calculate_target_deg`. Distances 23, 25.5, 28.5, 26 cm. |
 | rover_motor_controller_cpp | same controller | LX-16A bus is not used. |
 | rover_msgs | URDF joint names on the proto | `*_wheel_joint` (6), `*_corner_joint` (4). Radians. |
-| rover_teleop | same controller | w / a / s / d / x. |
+| rover_teleop | controllers/sawppy_drive | w / a / s / d / x. |
+| (SJTU prospecting ideas) | controllers/prospecting | A*, depth stop, orange samples, peaq event log. |
 | rover_gazebo | worlds/moon.wbt, worlds/mars.wbt | Moon 1.62 m/s², Mars 3.71 m/s². |
 | rover_localization | GPS, IMU, camera, range-finder | Ground truth in Webots. EKF and RTAB-Map stay in ROS. |
 | rover_navigation | not ported | Nav2 stays in ROS. |
@@ -34,3 +35,7 @@ Click the 3D view, then **w** forward, **x** back, **a** left, **d** right, **s*
 The ROS parser negates the right drive commands because those servos are mounted backwards. The Webots controller does the same: `(command / 100) * MAX_WHEEL`, then negate right wheels.
 
 `worlds/moon.wbt` includes a hidden `mcp_bridge` supervisor so the Webots MCP can inspect sensors and command motors.
+
+peaq and Dynamic stay in `packages/settler`, off the Webots process. See the repo README.
+
+Sawppy keeps the original STL/DAE look. Shadows are off on those meshes, lidar is 90 beams, the camera is 160x120 without antialiasing, and the sky HDR cubemap is dropped so the sim stays smooth. `mcp_bridge` is for MCP tools only; the prospecting controller does not query it every frame.

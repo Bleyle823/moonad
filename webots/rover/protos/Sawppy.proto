@@ -27,6 +27,7 @@ PROTO Sawppy [
     selfCollision IS selfCollision
     children [
       Shape {
+        castShadows FALSE
         appearance DEF orange PBRAppearance {
           baseColor 0.82 0.55 0.18
           roughness 0.28
@@ -42,6 +43,7 @@ PROTO Sawppy [
       DEF body_box_link Solid {
         children [
           Shape {
+            castShadows FALSE
             appearance DEF white PBRAppearance {
               baseColor 0.72 0.74 0.76
               roughness 0.22
@@ -102,6 +104,7 @@ PROTO Sawppy [
           translation 0.000000 0.000000 0.068100
           children [
             Shape {
+              castShadows FALSE
               appearance USE white
               geometry DEF differential Mesh {
                 url "C:/Users/Omen/Desktop/ros2_rover-jazzy/rover_description/meshes/bases/differential.stl"
@@ -127,6 +130,7 @@ PROTO Sawppy [
         translation 0.071000 0.155000 0.011800
         children [
           Shape {
+            castShadows FALSE
             appearance USE white
             geometry DEF left_rocker_asm Mesh {
               url "C:/Users/Omen/Desktop/ros2_rover-jazzy/rover_description/meshes/bases/left_rocker_asm.stl"
@@ -155,6 +159,7 @@ PROTO Sawppy [
               translation -0.181000 0.025000 -0.062000
               children [
                 Shape {
+                  castShadows FALSE
                   appearance USE white
                   geometry DEF left_bogie_asm Mesh {
                     url "C:/Users/Omen/Desktop/ros2_rover-jazzy/rover_description/meshes/bases/left_bogie_asm.stl"
@@ -181,6 +186,7 @@ PROTO Sawppy [
                     translation -0.149000 0.050000 0.033800
                     children [
                       Shape {
+                        castShadows FALSE
                         appearance USE white
                         geometry DEF back_left_steering_asm Mesh {
                           url "C:/Users/Omen/Desktop/ros2_rover-jazzy/rover_description/meshes/bases/back_left_steering_asm.stl"
@@ -208,6 +214,7 @@ PROTO Sawppy [
                               rotation 1.000000 0.000000 0.000000 1.570796
                               children [
                                 Shape {
+                                  castShadows FALSE
                                   appearance DEF black PBRAppearance {
                                     baseColor 0.12 0.12 0.12
                                     roughness 0.85
@@ -289,6 +296,7 @@ PROTO Sawppy [
                         rotation 1.000000 0.000000 0.000000 1.570796
                         children [
                           Shape {
+                            castShadows FALSE
                             appearance USE black
                             geometry USE wheel_asm
                           }
@@ -354,6 +362,7 @@ PROTO Sawppy [
               translation 0.211600 0.075000 -0.027900
               children [
                 Shape {
+                  castShadows FALSE
                   appearance USE white
                   geometry DEF front_left_steering_asm Mesh {
                     url "C:/Users/Omen/Desktop/ros2_rover-jazzy/rover_description/meshes/bases/front_left_steering_asm.stl"
@@ -381,6 +390,7 @@ PROTO Sawppy [
                         rotation 1.000000 0.000000 0.000000 1.570796
                         children [
                           Shape {
+                            castShadows FALSE
                             appearance USE black
                             geometry USE wheel_asm
                           }
@@ -444,6 +454,7 @@ PROTO Sawppy [
         translation 0.071000 -0.155000 0.011800
         children [
           Shape {
+            castShadows FALSE
             appearance USE white
             geometry DEF right_rocker_asm Mesh {
               url "C:/Users/Omen/Desktop/ros2_rover-jazzy/rover_description/meshes/bases/right_rocker_asm.stl"
@@ -472,6 +483,7 @@ PROTO Sawppy [
               translation -0.181000 -0.025000 -0.062000
               children [
                 Shape {
+                  castShadows FALSE
                   appearance USE white
                   geometry DEF right_bogie_asm Mesh {
                     url "C:/Users/Omen/Desktop/ros2_rover-jazzy/rover_description/meshes/bases/right_bogie_asm.stl"
@@ -498,6 +510,7 @@ PROTO Sawppy [
                     translation -0.149000 -0.050000 0.033800
                     children [
                       Shape {
+                        castShadows FALSE
                         appearance USE white
                         geometry DEF back_right_steering_asm Mesh {
                           url "C:/Users/Omen/Desktop/ros2_rover-jazzy/rover_description/meshes/bases/back_right_steering_asm.stl"
@@ -525,6 +538,7 @@ PROTO Sawppy [
                               rotation -1.000000 0.000000 0.000000 1.570796
                               children [
                                 Shape {
+                                  castShadows FALSE
                                   appearance USE black
                                   geometry USE wheel_asm
                                 }
@@ -591,6 +605,7 @@ PROTO Sawppy [
                         rotation -1.000000 0.000000 0.000000 1.570796
                         children [
                           Shape {
+                            castShadows FALSE
                             appearance USE black
                             geometry USE wheel_asm
                           }
@@ -656,6 +671,7 @@ PROTO Sawppy [
               translation 0.211600 -0.075000 -0.027900
               children [
                 Shape {
+                  castShadows FALSE
                   appearance USE white
                   geometry DEF front_right_steering_asm Mesh {
                     url "C:/Users/Omen/Desktop/ros2_rover-jazzy/rover_description/meshes/bases/front_right_steering_asm.stl"
@@ -683,6 +699,7 @@ PROTO Sawppy [
                         rotation -1.000000 0.000000 0.000000 1.570796
                         children [
                           Shape {
+                            castShadows FALSE
                             appearance USE black
                             geometry USE wheel_asm
                           }
@@ -750,6 +767,7 @@ PROTO Sawppy [
             children [
               DEF hokuyo_ust_20lx_visual CadShape {
                 url "C:/Users/Omen/Desktop/ros2_rover-jazzy/rover_description/meshes/sensors/hokuyo/hokuyo_ust_20lx.dae"
+                castShadows FALSE
               }
             ]
           }
@@ -757,7 +775,7 @@ PROTO Sawppy [
             name "lidar"
             fieldOfView 4.712389
             verticalFieldOfView 0.02
-            horizontalResolution 270
+            horizontalResolution 90
             numberOfLayers 1
             projection "cylindrical"
             minRange 0.35
@@ -783,6 +801,7 @@ PROTO Sawppy [
         translation 0.000000 0.000000 -0.040000
         children [
           Shape {
+            castShadows FALSE
             appearance DEF blue PBRAppearance {
               baseColor 0.15 0.22 0.38
               roughness 0.35
@@ -838,6 +857,7 @@ PROTO Sawppy [
             children [
               DEF asus_xtion_pro_live_visual CadShape {
                 url "C:/Users/Omen/Desktop/ros2_rover-jazzy/rover_description/meshes/sensors/asus_xtion/asus_xtion_pro_live.dae"
+                castShadows FALSE
               }
             ]
           }
@@ -857,10 +877,10 @@ PROTO Sawppy [
           Camera {
             name "camera"
             fieldOfView 1.0472
-            width 320
-            height 240
+            width 160
+            height 120
             near 0.05
-            antiAliasing TRUE
+            antiAliasing FALSE
             recognition Recognition {
               maxRange 8
               frameColor 0.929412 0.831373 0
@@ -870,8 +890,8 @@ PROTO Sawppy [
           RangeFinder {
             name "depth"
             fieldOfView 1.0
-            width 160
-            height 120
+            width 80
+            height 60
             minRange 0.2
             maxRange 4
           }

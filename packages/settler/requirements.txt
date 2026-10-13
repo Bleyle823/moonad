@@ -1,0 +1,4 @@
+python-dotenv>=1.0.0
+eth-account>=0.13.0
+eth-utils>=5.0.0
+peaq-os-sdk>=0.11.2

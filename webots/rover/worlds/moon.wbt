@@ -6,7 +6,7 @@ WorldInfo {
   title "Sawppy on the Moon"
   info [
     "Uneven mare, miniature craters, rocks and pebbles on the official moon_ground terrain."
-    "urdf2webots Sawppy (ENU). Click the 3D view, then w/a/s/d/x."
+    "Sawppy prospecting: A* to orange samples, then the lander pad. Teleop controller is sawppy_drive."
   ]
   gravity 1.62
   basicTimeStep 16
@@ -31,14 +31,7 @@ Viewpoint {
   follow "Sawppy"
 }
 Background {
-  skyColor [ 0 0 0 ]
-  luminosity 1
-  backIrradianceUrl [ "textures/sky/empty_office_back.hdr" ]
-  bottomIrradianceUrl [ "textures/sky/empty_office_bottom.hdr" ]
-  frontIrradianceUrl [ "textures/sky/empty_office_front.hdr" ]
-  leftIrradianceUrl [ "textures/sky/empty_office_left.hdr" ]
-  rightIrradianceUrl [ "textures/sky/empty_office_right.hdr" ]
-  topIrradianceUrl [ "textures/sky/empty_office_top.hdr" ]
+  skyColor [ 0.02 0.02 0.03 ]
 }
 DirectionalLight {
   ambientIntensity 0.08
@@ -3253,6 +3246,7 @@ Solid {
 Solid {
   translation 1.8 -4.0 -0.144
   name "sample_ilmenite"
+  model "sample_ilmenite"
   recognitionColors [ 1 0.45 0.1 ]
   children [
     Shape {
@@ -3262,10 +3256,48 @@ Solid {
   ]
   boundingObject Box { size 0.2 0.2 0.2 }
 }
+Solid {
+  translation 1.0 2.2 -0.144
+  name "sample_ilmenite_02"
+  model "sample_ilmenite_02"
+  recognitionColors [ 1 0.45 0.1 ]
+  children [
+    Shape {
+      appearance PBRAppearance { baseColor 0.85 0.42 0.12 roughness 0.35 metalness 0.55 }
+      geometry Box { size 0.2 0.2 0.2 }
+    }
+  ]
+  boundingObject Box { size 0.2 0.2 0.2 }
+}
+Solid {
+  translation -4.5 1.2 -0.144
+  name "sample_ilmenite_03"
+  model "sample_ilmenite_03"
+  recognitionColors [ 1 0.45 0.1 ]
+  children [
+    Shape {
+      appearance PBRAppearance { baseColor 0.85 0.42 0.12 roughness 0.35 metalness 0.55 }
+      geometry Box { size 0.2 0.2 0.2 }
+    }
+  ]
+  boundingObject Box { size 0.2 0.2 0.2 }
+}
+Solid {
+  translation -5.2 -2.4 -0.18
+  name "lander_pad"
+  recognitionColors [ 0.55 0.58 0.62 ]
+  children [
+    Shape {
+      appearance PBRAppearance { baseColor 0.62 0.64 0.68 roughness 0.55 metalness 0.35 }
+      geometry Cylinder { height 0.04 radius 0.7 }
+    }
+  ]
+  boundingObject Cylinder { height 0.04 radius 0.7 }
+}
 Sawppy {
   translation -2.35 -0.7 0.336
   rotation 0 0 1 6.15
-  controller "sawppy_drive"
+  controller "prospecting"
 }
 Robot {
   translation 0 0 -50

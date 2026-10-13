@@ -2,6 +2,12 @@ node_modules/
 .env
 .env.*
 !.env.example
+packages/settler/config/wallets.json
+packages/settler/config/peaqos_wallets.json
+packages/settler/config/dynamic-wallet.json
+packages/settler/config/submitted.json
+webots/rover/controllers/prospecting/peaq_events.jsonl
+webots/lunar_prospecting/controllers/prospecting/peaq_events.jsonl
 cache/
 artifacts/
 typechain-types/
