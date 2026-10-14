@@ -8,6 +8,10 @@ packages/settler/config/dynamic-wallet.json
 packages/settler/config/submitted.json
 webots/rover/controllers/prospecting/peaq_events.jsonl
 webots/lunar_prospecting/controllers/prospecting/peaq_events.jsonl
+webots/rover/controllers/lunar_economy/active_job.json
+webots/rover/controllers/lunar_economy/escrow_ledger.json
+webots/rover/controllers/lunar_economy/lander_events.jsonl
+webots/rover/controllers/lunar_economy/settlement_intents.jsonl
 cache/
 artifacts/
 typechain-types/

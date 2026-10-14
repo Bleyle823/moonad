@@ -3294,6 +3294,18 @@ Solid {
   ]
   boundingObject Cylinder { height 0.04 radius 0.7 }
 }
+Robot {
+  translation -5.2 -2.4 0.15
+  name "lander_task_agent"
+  controller "lander_agent"
+  supervisor TRUE
+  children [
+    Shape {
+      appearance PBRAppearance { baseColor 0.5 0.52 0.55 transparency 0.85 }
+      geometry Sphere { radius 0.05 }
+    }
+  ]
+}
 Sawppy {
   translation -2.35 -0.7 0.336
   rotation 0 0 1 6.15

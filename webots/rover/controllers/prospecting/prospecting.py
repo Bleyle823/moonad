@@ -16,6 +16,7 @@ from controller import Robot
 
 _HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(_HERE, "..", "sawppy_drive"))
+sys.path.insert(0, os.path.join(_HERE, "..", "lunar_economy"))
 sys.path.insert(0, _HERE)
 
 from sawppy_drive import (  # noqa: E402
@@ -32,6 +33,7 @@ from sawppy_drive import (  # noqa: E402
 
 from algorithm.global_planner import GlobalPlanner  # noqa: E402
 from algorithm.vehicle import Vehicle  # noqa: E402
+from bus import load_active_job, request_discovery_release  # noqa: E402
 
 SAMPLES = [
     ("sample_ilmenite", 1.8, -4.0),
@@ -110,7 +112,16 @@ class Prospecting:
         self.avoid_until = 0
         self.avoid_spins = 0
         self.tick = 0
-        self._log("machine_online", {"machine_type": "lunar_prospector", "chassis": "sawppy_rocker_bogie"})
+        self.job = load_active_job()
+        self._log(
+            "machine_online",
+            {
+                "machine_id": "prospector-1",
+                "machine_type": "lunar_prospector",
+                "chassis": "sawppy_rocker_bogie",
+                "job_id": (self.job or {}).get("job_id"),
+            },
+        )
 
     def _log(self, kind, payload):
         rec = {"event": kind, "payload": payload}
@@ -194,7 +205,26 @@ class Prospecting:
             named = any(sname in n or "ilmenite" in n.lower() for n in rec_names)
             if named or dist < 1.2:
                 self.found.add(sname)
-                self._log("sample_found", {"id": sname, "x": round(sx, 2), "y": round(sy, 2)})
+                if self.job is None:
+                    self.job = load_active_job()
+                verification = "recognition" if named else "proximity"
+                payload = {
+                    "id": sname,
+                    "x": round(sx, 2),
+                    "y": round(sy, 2),
+                    "verification": verification,
+                }
+                if self.job:
+                    payload["job_id"] = self.job["job_id"]
+                    payload["buyer_machine_id"] = self.job["buyer_machine_id"]
+                    payload["worker_machine_id"] = self.job["worker_machine_id"]
+                    request_discovery_release(
+                        self.job,
+                        sname,
+                        verification,
+                        {"x": round(x, 2), "y": round(y, 2)},
+                    )
+                self._log("sample_found", payload)
 
     def step(self):
         if self.robot.step(self.dt) == -1:
@@ -216,6 +246,8 @@ class Prospecting:
             self.last_event_m = self.travelled
             self._log("traverse", {"x": round(x, 2), "y": round(y, 2), "metres": round(self.travelled, 1)})
 
+        if self.job is None and self.tick % 32 == 0:
+            self.job = load_active_job()
         if self.tick % 8 == 0:
             self._see_samples(x, y)
 

@@ -4,7 +4,8 @@
   "type": "module",
   "description": "Dynamic owner wallet funds the peaq machine on agung",
   "scripts": {
-    "fund": "node fund.mjs"
+    "fund": "node fund.mjs",
+    "pay": "node pay.mjs"
   },
   "dependencies": {
     "@dynamic-labs-wallet/node-evm": "^1.0.0",

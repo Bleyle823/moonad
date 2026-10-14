@@ -36,6 +36,6 @@ The ROS parser negates the right drive commands because those servos are mounted
 
 `worlds/moon.wbt` includes a hidden `mcp_bridge` supervisor so the Webots MCP can inspect sensors and command motors.
 
-peaq and Dynamic stay in `packages/settler`, off the Webots process. See the repo README.
+`lander_agent` and `prospecting` use `controllers/lunar_economy/` for on-surface jobs and escrow intents. peaq and Dynamic signing stay in `packages/settler` on Earth. See the repo README.
 
 Sawppy keeps the original STL/DAE look. Shadows are off on those meshes, lidar is 90 beams, the camera is 160x120 without antialiasing, and the sky HDR cubemap is dropped so the sim stays smooth. `mcp_bridge` is for MCP tools only; the prospecting controller does not query it every frame.
